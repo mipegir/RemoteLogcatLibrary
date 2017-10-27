@@ -2,7 +2,7 @@
 An Android library that setup internal an server to **show Android LogCat in your browser**. You will never need to connect your cable again to debug or watch logs.
 
 ## How it works?
-When you add this library with your Android APP, it enables a web server to allow access to getting Android Logcat info in real-time. You only need run some browser and request a query setting IP direction of your device (like http://192.168.0.128). Note that is necesary share the same network.
+When you add this library with your Android APP, it enables a web server to allow access to getting Android Logcat info in real-time. You only need run some browser and request a query setting IP direction of your device (like http://192.168.0.128:8080). Note that is necesary share the same network.
 
 ## How can you setup it?
 You only need follow only these 3 steps:
