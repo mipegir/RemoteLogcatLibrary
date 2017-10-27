@@ -1,5 +1,5 @@
-# RemoteLogCatLibrary
-An Android library that setup internal an server to **show Android LogCat in your browser**. You will never need to connect your cable again to debug or watch logs.
+# RemoteLogcatLibrary
+An Android library that setup internal an server to **show Android Logcat in your browser**. You will never need to connect your cable again to debug or watch logs.
 
 ## How it works?
 When you add this library with your Android APP, it enables a web server to allow access to getting Android Logcat info in real-time. You only need run some browser and request a query setting IP direction of your device (like http://192.168.0.128:8080). Note that is necesary share the same network.
@@ -41,7 +41,7 @@ You only need follow only these 3 steps:
     }
 ```
 
-When you runs your APP, a default Android notification shows IP Address of your mobile phone to start conections. If you touch it, your browser opens welcome page to show tracked info from your Android logCat.
+When you runs your APP, a default Android notification shows IP Address of your mobile phone to start conections. If you touch it, your browser opens welcome page to show tracked info from your Android Logcat.
 
 I hope you enjoy it! Byee
 
