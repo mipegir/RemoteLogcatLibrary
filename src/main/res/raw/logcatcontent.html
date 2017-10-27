@@ -1,0 +1,80 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Remote Android LogCat</title>
+    <script>
+        var myTimer;
+        var currentScroll = 0;
+        var currentScrollTAG = "currentScroll";
+        var lastPositionTag = "lastPos";
+
+        function reloadFunction() {
+            document.cookie = currentScrollTAG + "=" + document.body.scrollTop;
+            window.location.href = document.URL
+        }
+
+        function stopTemp() {
+            clearTimeout(myTimer), document.body.style.backgroundColor = "#ddd";
+        }
+
+        function startTemp() {
+            var lastPos = getCookie(lastPositionTag);
+            currentScroll = getCookie(currentScrollTAG);
+
+            if (lastPos === undefined || lastPos == null || lastPos.length <= 0 || lastPos > document.body.scrollHeight){
+                document.querySelector('#buttonStop').scrollIntoView({
+                    behavior: 'smooth'
+                });
+                document.cookie = "lastPos=" + document.body.scrollHeight;
+            }else{
+                window.scrollTo(0, currentScroll);
+                document.cookie = lastPositionTag + "=" + document.body.scrollHeight;
+            }
+            myTimer = window.setTimeout(reloadFunction, #MILLISECONDS_TO_RELOADING#);
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function clearLog() {
+            document.body.innerHTML += '<form id="dynForm" action="' + document.URL + '" method="post"><input type="hidden" name="operation" value="clean"></form>', document.getElementById("dynForm").submit()
+        }
+    </script>
+</head>
+<body onload="startTemp();">
+<h2 style="color: #2e6c80; text-align: left;">Escuchando a #APP_NAME##FILTERED_STRING#</h2>
+
+<!--LogCat content-->
+#LOGCAT_CONTENT_TAG#
+<!--LogCat content ends-->
+
+<center>
+    <br/>
+    <table style="width: 300px;">
+        <tbody>
+        <tr>
+            <td style="width: 150px;">
+                <center><button id="buttonStop" onclick="stopTemp()">Parar el refresco</button></center>
+            </td>
+            <td style="width: 150px;">
+                <center><button id="buttonClear" onclick="clearLog()">Limpiar Log</button></center>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</center>
+</body>
+</html>

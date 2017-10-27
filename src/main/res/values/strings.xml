@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">RemoteLogCat</string>
+    <string name="title_notification">RemoteLogCat enabled!</string>
+    <string name="filtered_by_header">" filtrado por '#TAG#'"</string>
+    <string name="notification_message">Open http://</string>
+</resources>

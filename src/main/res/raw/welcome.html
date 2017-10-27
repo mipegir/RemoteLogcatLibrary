@@ -1,0 +1,45 @@
+<html>
+   <head>
+       <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+      <meta charset="utf-8">
+      <title>Remote Android LogCat</title>
+   </head>
+   <body>
+      <h1 style="color: #5e9ca0; text-align: center;">Bienvenido al Log de #APP_NAME#!</h1>
+      <h2 style="color: #2e6c80; text-align: left;">C&oacute;mo utilizar este Log:</h2>
+      <p style="text-align: left;">Para ver el log que ha generado tu dispositivo, s&oacute;lo tienes que concatenar a tu actual URL el path <strong>/log</strong>, con ello ya tendr&aacute;s acceso para ver lo que ocurre en tu dispositivo.</p>
+      <p style="text-align: left;">Pero quiz&aacute; ver toda esta informaci&oacute;n al mismo tiempo puede ser algo engorroso, as&iacute; que puedes ir un poco m&aacute;s all&aacute; filtrando por l&iacute;neas:</p><ul style="text-align: center;">
+          <li style="text-align: left;">Puedes filtrar&nbsp;obteniendo s&oacute;lo las l&iacute;neas que empiezan con cierta cadena con <strong>filterStart</strong>.</li>
+          <li style="text-align: left;">Puedes filtrar obteniendo s&oacute;lo las l&iacute;neas que contengan una cadena concreta con <strong>filterContains.</strong>
+          </li></ul><h2 style="color: #2e6c80; text-align: left;">Ejemplos de filtrado:</h2><table style="width: 540px;">
+      <thead>
+         <tr>
+             <td style="width: 147px;">
+                <strong>Opciones de filtrado</strong>
+            </td>
+             <td style="width: 388px; text-align: left;">
+                <strong>Ejemplo</strong>
+            </td>
+         </tr>
+      </thead>
+      <tbody>
+         <tr>
+             <td style="width: 147px;">filterStart</td>
+             <td style="width: 388px;">
+                <a id="linkStart" href="#" onclick="window.location.href=document.URL+'/log?filterStart=D/OkHttp'">
+                    <em>http://IP_DEVICE:8080/log?filterStart=D/OkHttp</em>
+                </a>
+             </td>
+         </tr>
+         <tr>
+             <td style="width: 147px;">filterContains</td>
+             <td style="width: 388px;">
+                 <a id="linkContains" href="#" onclick="window.location.href=document.URL+'log?filterContains=appStatus'">
+                     <em>http://IP_DEVICE:8080/log?filterContains=appStatus</em>
+                 </a>
+             </td>
+         </tr>
+      </tbody>
+      </table><script>document.getElementById('linkStart').href=document.URL+'log?filterStart=D/OkHttp', document.getElementById('linkStart').innerHTML=document.URL+'log?filterStart=D/OkHttp', document.getElementById('linkContains').href=document.URL+'log?filterContains=appStatus', document.getElementById('linkContains').innerHTML=document.URL+'log?filterContains=appStatus';</script>
+   </body>
+</html>
