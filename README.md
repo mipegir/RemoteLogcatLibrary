@@ -6,7 +6,7 @@ When you add this library with your Android APP, it enables a web server to allo
 
 ## How can you setup it?
 You only need follow only these 3 steps:
- 1) Add [this .aar library](https://github.com/mipegir/RemoteLogCatLibrary/raw/master/downloads/remotelogcat_v1.0.aar) to your **app\libs** folder.
+ 1) Add [this .AAR library](https://github.com/mipegir/RemoteLogCatLibrary/raw/master/downloads/remotelogcat_v1.0.aar) to your **app/libs** folder.
  2) Add lines to **app/build.gradle** file.
 ```java
     repositories {
