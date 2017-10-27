@@ -45,7 +45,7 @@ When you runs your APP, a default Android notification shows IP Address of your 
 
 I hope you enjoy it! Byee
 
-#Screen Shots#
+# Screen Shots
 
 ![Screen Shot](https://github.com/mipegir/RemoteLogCatLibrary/raw/master/downloads/screenshots/mobile_screenshot.png)
 ![Screen Shot](https://github.com/mipegir/RemoteLogCatLibrary/raw/master/downloads/screenshots/desktop_screenshot.PNG)
