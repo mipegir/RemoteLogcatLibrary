@@ -44,3 +44,8 @@ You only need follow only these 3 steps:
 When you runs your APP, a default Android notification shows IP Address of your mobile phone to start conections. If you touch it, your browser opens welcome page to show tracked info from your Android logCat.
 
 I hope you enjoy it! Byee
+
+#Screen Shots#
+
+![Screen Shot](https://github.com/mipegir/RemoteLogCatLibrary/raw/master/downloads/screenshots/mobile_screenshot.png)
+![Screen Shot](https://github.com/mipegir/RemoteLogCatLibrary/raw/master/downloads/screenshots/desktop_screenshot.PNG)
