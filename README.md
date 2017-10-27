@@ -23,7 +23,7 @@ You only need follow only these 3 steps:
         compile(name: "remotelogcat_v1.0", ext: 'aar')
 }
 ```
- 3) Code this lines in custom *Application class or some Activity*.
+ 3) Code this lines in your custom *Application class or Activity*.
 ```java
     @Override
     public void onCreate() {
