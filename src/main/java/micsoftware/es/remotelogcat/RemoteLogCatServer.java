@@ -38,6 +38,7 @@ import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.net.URLDecoder;
 import java.util.Calendar;
 
 
@@ -51,6 +52,8 @@ public class RemoteLogCatServer implements Runnable {
     private static final String LOGCAT_CONTENT_TAG = "#LOGCAT_CONTENT_TAG#";
     private static final String CLEAR_LOG_TAG = "CLEANED_";
     private static final String GENERIC_TAG= "#TAG#";
+    private static final String UTF8Encoding = "UTF-8";
+
     enum FilterTypes {TAG_FILTER_START, TAG_FILTER_CONTAINS, NO_FILTER;}
 
     // Filter constant strings
@@ -249,7 +252,12 @@ public class RemoteLogCatServer implements Runnable {
         int start = line.indexOf('/') + 4;
         int end = line.indexOf(' ', start);
         query = line.substring(start, end);
-        return query;
+        try {
+            return URLDecoder.decode(query, UTF8Encoding).trim();
+        }catch (Exception e){
+            return query;
+        }
+
     }
 
     private void createOkResponse(PrintStream output, byte[] bytes) throws IOException {
@@ -392,7 +400,7 @@ public class RemoteLogCatServer implements Runnable {
 
     private byte[] getBytesFromString(String inputString) throws IOException {
 
-        InputStream inputData = new ByteArrayInputStream(inputString.getBytes("UTF-8"));
+        InputStream inputData = new ByteArrayInputStream(inputString.getBytes(UTF8Encoding));
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
         byte[] buffer = new byte[1024];

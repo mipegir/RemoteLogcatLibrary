@@ -1,9 +1,120 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Remote Android LogCat</title>
+    <title>Remote Android Logcat</title>
+    <style type="text/css">
+		body { margin: 0; padding: 0; }
+		.visibleHeader
+		{
+			width: 100%;
+			position: fixed;
+			height: 35px;
+			background: #aaaaaa;
+			color: #ffffff;
+			font-size: 15px;
+			top: 0px;
+			color: white;
+			text-shadow: 2px 2px 4px #000000;
+			box-shadow: 0px 5px 0px #cccccc;
+		}
+		.visibleFooter
+		{
+			width: 100%;
+			position: fixed;
+			height: 45px;
+			background: #aaaaaa;
+			bottom: 0px;
+			box-shadow: 0px 0px 0px 5px #cccccc;
+		}
+		.contentLog
+		{
+			margin-left: 20px;
+			margin-top: 30px;
+			margin-bottom: 10px;
+			margin-right: 15px;
+		}
+		.verticalLeftLine
+		{
+			height: 100%;
+			position: fixed;
+			width: 10px;
+			background: #aaaaaa;
+		}
+		.verticalRightLine
+		{
+			height: 100%;
+			position: fixed;
+			width: 10px;
+			background: #aaaaaa;
+			right: 0px;
+		}
+		.button{
+			color: white;
+			padding: 5px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 12px;
+			background-color: white;
+			color: black;
+			border: 2px solid #000000;
+			border-radius: 5px;
+		}
+		.button:hover {
+			background-color: #4CAF50; /* Green */
+			color: white;
+		}
+		.loader {
+			position: fixed;
+			top: 47px;
+			right: 15px;
+			border: 5px solid #f3f3f3;
+			border-radius: 50%;
+			border-top: 5px solid #aaaaaa;
+			border-right: 5px solid white;
+			border-bottom: 5px solid #aaaaaa;
+			border-left: 5px solid white;
+			width: 20px;
+			height: 20px;
+			-webkit-animation: spin 2s linear infinite;
+			animation: spin 2s linear infinite;
+		}
+
+		@-webkit-keyframes spin {
+			0% { -webkit-transform: rotate(0deg); }
+			100% { -webkit-transform: rotate(360deg); }
+		}
+		@keyframes spin {
+			0% { transform: rotate(0deg); }
+			100% { transform: rotate(360deg); }
+		}
+		.svg{
+			margin-right:auto;
+			margin-left:auto;
+			radius:20%;
+			width: 100%;
+			max-width: 20px;
+			background-color: aliceblue;
+			max-height: 20px;
+			cursor: pointer;
+		}
+
+		.searchZone {
+			position: fixed;
+			top: 45px;
+			right: 60px;
+			border-radius: 25px;
+			background-color:white;
+			border: 2px solid #cccccc;
+			width: 220px;
+			height: 32px;
+
+		}
+
+	</style>
     <script>
         var myTimer;
+        var isTimerRunning = true;
         var currentScroll = 0;
         var currentScrollTAG = "currentScroll";
         var lastPositionTag = "lastPos";
@@ -14,21 +125,32 @@
         }
 
         function stopTemp() {
-            clearTimeout(myTimer), document.body.style.backgroundColor = "#ddd";
+			if(isTimerRunning){
+                document.getElementById("loaderProgress").style.display="none";
+                clearTimeout(myTimer), document.body.style.backgroundColor = "#ddd";
+                document.getElementById("buttonStop").innerText="Iniciar auto-recarga"
+            }else{
+                reloadFunction();
+            }
+            isTimerRunning=!isTimerRunning;
         }
 
         function startTemp() {
             var lastPos = getCookie(lastPositionTag);
             currentScroll = getCookie(currentScrollTAG);
 
-            if (lastPos === undefined || lastPos == null || lastPos.length <= 0 || lastPos > document.body.scrollHeight){
-                document.querySelector('#buttonStop').scrollIntoView({
+            console.log("CookieStartTemp->" + lastPositionTag + "=" + lastPos);
+            if (lastPos === undefined || lastPos == null || lastPos.length <= 0 || lastPos < document.body.scrollHeight){
+                window.scrollTo(0, currentScroll);
+                document.querySelector('#endOfFile').scrollIntoView({
                     behavior: 'smooth'
                 });
                 document.cookie = "lastPos=" + document.body.scrollHeight;
             }else{
+                if(lastPos > document.body.scrollHeight){
+                    document.cookie = "lastPos=" + document.body.scrollHeight;
+                }
                 window.scrollTo(0, currentScroll);
-                document.cookie = lastPositionTag + "=" + document.body.scrollHeight;
             }
             myTimer = window.setTimeout(reloadFunction, #MILLISECONDS_TO_RELOADING#);
         }
@@ -52,29 +174,64 @@
         function clearLog() {
             document.body.innerHTML += '<form id="dynForm" action="' + document.URL + '" method="post"><input type="hidden" name="operation" value="clean"></form>', document.getElementById("dynForm").submit()
         }
+
+		function searchContainsString(){
+			window.location.href = window.location.origin + "/log?filterContains=" + document.getElementById("inputSearch").value;
+		}
+
+		function onInputSearchClick(){
+		    if (isTimerRunning){
+		        stopTemp();
+		    }
+		}
     </script>
 </head>
 <body onload="startTemp();">
-<h2 style="color: #2e6c80; text-align: left;">Escuchando a #APP_NAME##FILTERED_STRING#</h2>
-
+<div class="visibleHeader">
+    <center><h2 style="margin:4;">Escuchando a #APP_NAME##FILTERED_STRING#</h2></center>
+</div>
+<div class="visibleFooter">
+    <center>
+        <table style="width: 400px;margin-top:5px">
+            <tbody>
+            <tr>
+                <td style="width: 170px;">
+                    <center><button id="buttonStop" class="button" onclick="stopTemp()">Parar auto-recarga</button></center>
+                </td>
+                <td style="width: 170px;">
+                    <center><button id="buttonClear" class="button" onclick="clearLog()">Limpiar Logcat</button></center>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </center>
+</div>
+<div class="verticalLeftLine"></div>
+<div class="verticalRightLine"></div>
+<div id="loaderProgress" class="loader"></div>
 <!--LogCat content-->
-#LOGCAT_CONTENT_TAG#
+<div class="contentLog">
+    <br/><br/>#LOGCAT_CONTENT_TAG#
+</div>
 <!--LogCat content ends-->
-
+<br/>
+<p id="endOfFile"></p>
 <center>
     <br/>
-    <table style="width: 300px;">
-        <tbody>
-        <tr>
-            <td style="width: 150px;">
-                <center><button id="buttonStop" onclick="stopTemp()">Parar el refresco</button></center>
-            </td>
-            <td style="width: 150px;">
-                <center><button id="buttonClear" onclick="clearLog()">Limpiar Log</button></center>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="searchZone">
+        <center><table style="width: 160px;margin-top:5px">
+            <tbody>
+            <tr>
+                <td style="width: 120px;">
+                    <input id="inputSearch" style="width:120px; margin-right:5px;border:none; background-color:white; border-bottom: 1px solid #aaaaaa;" onclick="onInputSearchClick();"type="text" name="FirstName" value="" placeholder="tag">
+                </td>
+                <td style="width: 40px;">
+                    <span class="svg" onclick="searchContainsString();">Buscar</span>
+                </td>
+            </tr>
+            </tbody>
+        </table></center>
+    </div>
 </center>
 </body>
 </html>
