@@ -20,7 +20,7 @@ You only need follow only these 3 steps:
         compile fileTree(include: ['*.jar'], dir: 'libs')
         ...
         //RemoteLogCat
-        compile(name: "remotelogcat_v1.0", ext: 'aar')
+        compile(name: "remotelogcat_v1.1", ext: 'aar')
 }
 ```
  3) Code this lines in your custom *Application class or Activity*.
