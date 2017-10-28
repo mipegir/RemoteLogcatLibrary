@@ -47,5 +47,10 @@ I hope you enjoy it! Byee
 
 # Screen Shots
 
+## From mobile phone
 ![Screen Shot](https://github.com/mipegir/RemoteLogCatLibrary/raw/master/downloads/screenshots/mobile_screenshot.png)
+
+![Screen Shot](https://github.com/mipegir/RemoteLogCatLibrary/raw/master/downloads/screenshots/mobile_screenshot2.png)
+
+## From desktop 
 ![Screen Shot](https://github.com/mipegir/RemoteLogCatLibrary/raw/master/downloads/screenshots/desktop_screenshot.PNG)
