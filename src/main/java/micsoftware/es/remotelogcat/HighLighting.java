@@ -16,13 +16,14 @@ public class HighLighting {
     private static final int MAX_LINES_JSON_BUFFER_HEURISTICS = 10;
 
     //Retrofit tags
-    private static String TAG_END_REQUEST_RETROFIT = ": --> END";
-    private static String TAG_START_REQUEST_RETROFIT = ": --> ";
-    private static String TAG_END_RESPONSE_RETROFIT = ": <-- END";
-    private static String TAG_START_RESPONSE_RETROFIT = ": <-- ";
-    private static String TAG_JSON_CONTENT_VALUE = "#JSON_CONTENT_VALUE#";
-    private static String TAG_LINE_NUMBER = "#LINE_NUMBER#";
-    private static String TAG_LINE_LABEL = "#LINE_LABEL#";
+    private static final String TAG_END_REQUEST_RETROFIT = ": --> END";
+    private static final String TAG_START_REQUEST_RETROFIT = ": --> ";
+    private static final String TAG_END_RESPONSE_RETROFIT = ": <-- END";
+    private static final String TAG_START_RESPONSE_RETROFIT = ": <-- ";
+    private static final String TAG_REMOTE_LOGCAT_BOLD = "#RemoteLogcatBold#";
+    private static final String TAG_JSON_CONTENT_VALUE = "#JSON_CONTENT_VALUE#";
+    private static final String TAG_LINE_NUMBER = "#LINE_NUMBER#";
+    private static final String TAG_LINE_LABEL = "#LINE_LABEL#";
 
 
     private static String tagBuffer = "";
@@ -46,6 +47,10 @@ public class HighLighting {
                 return boldHighLighting(inputStr);
             }else if (inputStr.contains(TAG_START_RESPONSE_RETROFIT)) {
                 return previousJumpHighLighting(boldHighLighting(inputStr));
+            }
+            //user request to higtlighting bold
+            else if (inputStr.contains(TAG_REMOTE_LOGCAT_BOLD)){
+                return boldHighLighting(inputStr.replace(TAG_REMOTE_LOGCAT_BOLD, ""));
             }
             //JSON HightLighting
             else if(containsJSONValue(inputStr)){
