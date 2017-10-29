@@ -42,10 +42,10 @@ import java.net.URLDecoder;
 import java.util.Calendar;
 
 
-public class RemoteLogCatServer implements Runnable {
+public class RemoteLogcatServer implements Runnable {
 
     //Constants
-    private static final String REMOTE_LOG_CAT_SERVER_TAG = "RemoteLogCatServer";
+    private static final String REMOTE_LOG_CAT_SERVER_TAG = "RemoteLogcatServer";
     private static final String MILLISECONDS_TO_RELOADING = "#MILLISECONDS_TO_RELOADING#";
     private static final String FILTERED_STRING = "#FILTERED_STRING#";
     private static final String APP_NAME = "#APP_NAME#";
@@ -71,7 +71,7 @@ public class RemoteLogCatServer implements Runnable {
     private boolean mIsRunning;
     private ServerSocket mServerSocket;
 
-    public RemoteLogCatServer(int port, int millisecondsToReloading, Context context) {
+    public RemoteLogcatServer(int port, int millisecondsToReloading, Context context) {
         mPort = port;
 
         if (context!=null && context.getApplicationInfo()!=null && context.getApplicationInfo().loadLabel(context.getPackageManager())!=null ) {
@@ -96,7 +96,7 @@ public class RemoteLogCatServer implements Runnable {
             outputStream.close();
             inputStream.close();
         } catch (IOException e) {
-            Log.d("RemoteLogCatFileError", e.getMessage());
+            Log.d("RemoteLogcatFileError", e.getMessage());
         }
         return outputStream.toString();
     }
@@ -153,7 +153,7 @@ public class RemoteLogCatServer implements Runnable {
     /**
      * This method starts the web server listening to the specified port.
      */
-    public void startViewer() {
+    public void startServer() {
         mIsRunning = true;
         new Thread(this).start();
     }
@@ -161,7 +161,7 @@ public class RemoteLogCatServer implements Runnable {
     /**
      * This method stops the web server
      */
-    public void stop() {
+    public void stopServer() {
         try {
             mIsRunning = false;
             if (null != mServerSocket) {
@@ -211,7 +211,7 @@ public class RemoteLogCatServer implements Runnable {
                     break;
                 }
                 if (line.startsWith("POST /log")){
-                    //HACK: All POST queries clean logCat
+                    //HACK: All POST queries clean Logcat
                     query = getQueryString(line);
                     forcePreviousCleaning = true;
                     break;
@@ -226,7 +226,7 @@ public class RemoteLogCatServer implements Runnable {
                 createUnknownRequestResponse(output);
                 return;
             }
-            byte[] bytes = readLogCatContent(query, forcePreviousCleaning);
+            byte[] bytes = readLogcatContent(query, forcePreviousCleaning);
             if (null == bytes) {
                 //we dont understand this request
                 createUnknownRequestResponse(output);
@@ -298,9 +298,9 @@ public class RemoteLogCatServer implements Runnable {
 
 
     /**
-     * The content of the LogCat.
+     * The content of the Logcat.
      */
-    private byte[] readLogCatContent(String route, boolean previousCleaning) throws IOException {
+    private byte[] readLogcatContent(String route, boolean previousCleaning) throws IOException {
 
         try {
 
@@ -333,6 +333,7 @@ public class RemoteLogCatServer implements Runnable {
             String line = "";
             boolean cleanFlagReached = false;
 
+            int lineNumber = 0;
             //Load logcat content
             while ((line = bufferedReader.readLine()) != null) {
 
@@ -347,22 +348,23 @@ public class RemoteLogCatServer implements Runnable {
                 switch (filter.first) {
                     case TAG_FILTER_START:
                         if (line.startsWith(filter.second)){
-                            processLine(log, line);
+                            processLine(log, line, lineNumber);
                         }
                         break;
                     case TAG_FILTER_CONTAINS:
                         if (line.contains(filter.second)){
-                            processLine(log, line);
+                            processLine(log, line, lineNumber);
                         }
                         break;
                     default:
-                        processLine(log, line);
+                        processLine(log, line, lineNumber);
                 }
+                lineNumber++;
             }
             return getBytesFromString(BASE_HTML_CONTENT.replace(LOGCAT_CONTENT_TAG, log.toString()));
 
         } catch (Exception ex) {
-            Log.e("RemoteLogCatError", ex.getMessage());
+            Log.e("RemoteLogcatError", ex.getMessage());
             return null;
         }
     }
@@ -377,8 +379,8 @@ public class RemoteLogCatServer implements Runnable {
         return total.toString();
     }
 
-    private void processLine(StringBuilder log, String line) {
-        log.append("<br/>").append(HighLighting.applyHighLighting(line));
+    private void processLine(StringBuilder log, String line, int lineNumber) {
+        log.append("<br/>").append(HighLighting.applyHighLighting(line, lineNumber));
     }
 
 

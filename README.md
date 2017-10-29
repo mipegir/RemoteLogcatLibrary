@@ -5,7 +5,7 @@ An Android library that boots **an internal web server to display Android Logcat
 When you add this library to your Android project, it enables a web server to allow access to getting Android Logcat info in real-time. You only need run some browser and request a query to IP direction of your device (like http://192.168.0.128:8080). Note that is necesary share the same network.
 
 ## How can you setup it?
-You only need follow only these 3 steps:
+You only need to follow these 3 steps:
  1) Add [this .AAR library](https://github.com/mipegir/RemoteLogcatLibrary/raw/master/downloads/remotelogcat_v1.1.aar) to your **app/libs** folder.
  2) Add these lines to the **app/build.gradle** file.
 ```java
@@ -30,13 +30,13 @@ You only need follow only these 3 steps:
         super.onCreate();
 
         if (BuildConfig.DEBUG) { //avoid execution on release, it is only for testing purpoise
-            RemoteLogCatServer logCatServer 
-                    = new RemoteLogCatServer(
+            RemoteLogcatServer logcatServer 
+                    = new RemoteLogcatServer(
                         8080,  //port to open connection
                         5000,  //page reload rate (ms)
                         getApplicationContext()
                      );
-            logCatServer.startViewer();
+            logcatServer.startServer();
         }
     }
 ```
@@ -47,10 +47,10 @@ I hope you enjoy it! Byee
 
 # Screen Shots
 
-## From mobile phone
-![Screen Shot](https://github.com/mipegir/RemoteLogCatLibrary/raw/master/downloads/screenshots/mobile_screenshot.png)
+## From mobile phone (local connection)
+![Screen Shot](https://github.com/mipegir/RemoteLogCatLibrary/raw/master/downloads/screenshots/mobile_screenshot_remote_logcat_android.png)
 
-![Screen Shot](https://github.com/mipegir/RemoteLogCatLibrary/raw/master/downloads/screenshots/mobile_screenshot2.png)
+![Screen Shot](https://github.com/mipegir/RemoteLogCatLibrary/raw/master/downloads/screenshots/mobile_screenshot2_remote_logcat_android.png)
 
-## From desktop 
-![Screen Shot](https://github.com/mipegir/RemoteLogCatLibrary/raw/master/downloads/screenshots/desktop_screenshot.PNG)
+## From desktop browser (remote connection)
+![Screen Shot](https://github.com/mipegir/RemoteLogCatLibrary/raw/master/downloads/screenshots/desktop_screenshot_remote_logcat_android.PNG)

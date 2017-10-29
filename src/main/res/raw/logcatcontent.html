@@ -61,7 +61,7 @@
 			border-radius: 5px;
 		}
 		.button:hover {
-			background-color: #4CAF50; /* Green */
+			background-color: #4CAF50;
 			color: white;
 		}
 		.loader {
@@ -71,9 +71,7 @@
 			border: 5px solid #f3f3f3;
 			border-radius: 50%;
 			border-top: 5px solid #aaaaaa;
-			border-right: 5px solid white;
 			border-bottom: 5px solid #aaaaaa;
-			border-left: 5px solid white;
 			width: 20px;
 			height: 20px;
 			-webkit-animation: spin 2s linear infinite;
@@ -91,12 +89,43 @@
 		.svg{
 			margin-right:auto;
 			margin-left:auto;
-			radius:20%;
+			border-radius: 10px;
 			width: 100%;
-			max-width: 20px;
-			background-color: aliceblue;
+			padding-left:10px;
+			padding-right:10px;
+			padding-top:2px;
+			padding-bottom:2px;
+			max-width: 30px;
+			background-color: white;
 			max-height: 20px;
 			cursor: pointer;
+		}
+
+		.svg:hover {
+            background-color: #cccccc;
+            text-shadow: 1px 1px 2px #000000;
+			color: white;
+		}
+
+        .jsonlabel{
+			width: 100%;
+			background-color: #cccccc;
+			border-radius: 8px;
+			padding: 0px 5px 0px 5px;
+			text-align: center;
+			text-decoration: none;
+			cursor: pointer;
+		}
+		.jsonlabel:hover{
+            background-color: #aaaaaa;
+            text-shadow: 1px 1px 2px #000000;
+			color: white;
+		}
+
+        .jsonzone{
+			width: 100%;
+			background-color: #cccccc;
+			border: 1px solid #AAAAAA;
 		}
 
 		.searchZone {
@@ -108,8 +137,42 @@
 			border: 2px solid #cccccc;
 			width: 220px;
 			height: 32px;
-
 		}
+
+		pre {
+		  outline: 1px solid #ccc;
+		  padding: 2px;
+		  margin: 2px;
+		}
+
+
+		/*JSON Styles*/
+
+		.string {
+            color: #006600;
+            font-weight:lighter;
+        }
+
+        .number {
+            color: red;
+            font-weight:lighter;
+        }
+
+        .boolean {
+            color: blue;
+            font-weight:lighter;
+        }
+
+        .null {
+            color: magenta;
+            font-style:italic;
+            font-weight:lighter;
+        }
+
+        .key {
+            color: #000099;
+            font-weight:bold;
+        }
 
 	</style>
     <script>
@@ -139,7 +202,6 @@
             var lastPos = getCookie(lastPositionTag);
             currentScroll = getCookie(currentScrollTAG);
 
-            console.log("CookieStartTemp->" + lastPositionTag + "=" + lastPos);
             if (lastPos === undefined || lastPos == null || lastPos.length <= 0 || lastPos < document.body.scrollHeight){
                 window.scrollTo(0, currentScroll);
                 document.querySelector('#endOfFile').scrollIntoView({
@@ -184,6 +246,25 @@
 		        stopTemp();
 		    }
 		}
+
+		function syntaxHighlight(json) {
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+                var cls = 'number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'key';
+                    } else {
+                        cls = 'string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
     </script>
 </head>
 <body onload="startTemp();">
