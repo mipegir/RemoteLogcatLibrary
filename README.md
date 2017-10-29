@@ -1,10 +1,11 @@
 # RemoteLogcatLibrary
-An Android library that boots **an internal web server to display Android Logcat in your browser**. You will never need to connect your cable again to debug or watch logs.
+An Android library that boots **an internal web server to display Android Logcat in your browser**. You will never need to connect your cable again to debug or view logs.
 
 ## Why?
-* Does anyone on your team, who is not Android developer, need to view logs? Maybe back-end developers? They test webservices in Postman, SoapUI, Advanced REST Client ... but they do not obtain the same results as with the APP? Why not test the APP directly? You only have to write logs to see them in the browser.
-* Android Logcat shows raw data.
-* You can integrate this ligthweight library and just run it into debug builds.
+* Does anyone on your team, who is not Android developer, need to view logs? Maybe back-end developers? They test webservices in Postman, SoapUI, Advanced REST Client... but they do not obtain the same results as with the APP? Why not test the APP directly? You only have to write logs to see them in the browser.
+* Because you can integrate this ligthweight library and just run it into debug builds.
+* Because you can unplug the debug cable and turn off adb commands.
+* Because Android Logcat shows raw data.
 
 ## How it works?
 When you add this library to your Android application, it enables a web server to allow access to getting Android Logcat info in real-time. You only need run some browser and request a query to IP direction of your device (like http://192.168.0.128:8080). Note that is necesary share the same network. Once you get the fist connection to */log* path, automatically the content be reload frequently providing the latest changes. Remember that you can also filter the content using the search engine.
@@ -71,7 +72,7 @@ To expand the content formatting a pretty JSON object you must click on the head
 
 ![Screen Shot](https://github.com/mipegir/RemoteLogcatLibrary/raw/master/downloads/screenshots/desktop_screenshot_expanded_json_object.png)
 
-# Other screen shots
+# Other screenshots
 
 ## From mobile phone (local connection)
 ![Screen Shot](https://github.com/mipegir/RemoteLogCatLibrary/raw/master/downloads/screenshots/mobile_screenshot_remote_logcat_android.png)
