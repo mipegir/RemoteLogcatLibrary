@@ -45,7 +45,28 @@ When you runs your APP, a default Android notification shows IP Address of your 
 
 I hope you enjoy it! Byee
 
-# Screen Shots
+# Hightlighting
+* Automatic highlighting for JSON objects found in Logcat
+* Automatic bold hightlighting for *Retrofit* request and response tags
+* Manual bold hightlighting using *#RemoteLogcatBold#* tags
+
+### Custom bold hightlighting
+```java
+ private static final String TAG_REMOTE_LOGCAT_BOLD = "#RemoteLogcatBold#";
+ Log.d("your_tag", TAG_REMOTE_LOGCAT_BOLD + "something to hightlight");
+```
+
+![Screen Shot](https://github.com/mipegir/RemoteLogcatLibrary/raw/master/downloads/screenshots/desktop_screenshot_bold_higtligting.PNG)
+
+### Automatic highlighting for JSON objects: collapsed object
+![Screen Shot](https://github.com/mipegir/RemoteLogcatLibrary/raw/master/downloads/screenshots/desktop_screenshot_colapsed_json_object.png)
+
+### Automatic highlighting for JSON objects: expanded object
+To expand the content formatting a pretty JSON object you must click on the header tag. In this case: "D/OkHttp" label.
+
+![Screen Shot](https://github.com/mipegir/RemoteLogcatLibrary/raw/master/downloads/screenshots/desktop_screenshot_expanded_json_object.png)
+
+# Other screen shots
 
 ## From mobile phone (local connection)
 ![Screen Shot](https://github.com/mipegir/RemoteLogCatLibrary/raw/master/downloads/screenshots/mobile_screenshot_remote_logcat_android.png)
@@ -53,4 +74,4 @@ I hope you enjoy it! Byee
 ![Screen Shot](https://github.com/mipegir/RemoteLogCatLibrary/raw/master/downloads/screenshots/mobile_screenshot2_remote_logcat_android.png)
 
 ## From desktop browser (remote connection)
-![Screen Shot](https://github.com/mipegir/RemoteLogCatLibrary/raw/master/downloads/screenshots/desktop_screenshot_remote_logcat_android.PNG)
+![Screen Shot](https://github.com/mipegir/RemoteLogcatLibrary/raw/master/downloads/screenshots/desktop_screenshot_remote_logcat_android.PNG)
