@@ -36,7 +36,7 @@ public class NetworkUtils {
             }
         }
         if (TextUtils.isEmpty(actualConnectedToNetwork)) {
-            actualConnectedToNetwork = getNetworkInterfaceIpAddress(context);
+            actualConnectedToNetwork = getNetworkInterfaceIpAddress();
         }
         if (TextUtils.isEmpty(actualConnectedToNetwork)) {
             actualConnectedToNetwork = "127.0.0.1";
@@ -57,7 +57,7 @@ public class NetworkUtils {
 
 
     @Nullable
-    private static String getNetworkInterfaceIpAddress(Context context) {
+    private static String getNetworkInterfaceIpAddress() {
         try {
             for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
                 NetworkInterface networkInterface = en.nextElement();

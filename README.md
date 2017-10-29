@@ -19,7 +19,7 @@ You only need to follow these 3 steps:
     dependencies {
         compile fileTree(include: ['*.jar'], dir: 'libs')
         ...
-        //RemoteLogCat
+        //RemoteLogcat
         compile(name: "remotelogcat_v1.1", ext: 'aar')
 }
 ```
